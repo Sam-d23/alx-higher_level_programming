@@ -1,13 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "lists.h"
-struct listint_t 
-{
-    int data;
-    struct listint_t *next;
-};
-
-typedef struct listint_t listint_t;
+/**
+ * insert_node - inserts a number into a sorted singly linked list.
+ * @head: list head
+ * @number: number to store in the new node
+ * Return: pointer to the new node
+ */
 
 listint_t *insert_node(listint_t **head, int number) 
 {
