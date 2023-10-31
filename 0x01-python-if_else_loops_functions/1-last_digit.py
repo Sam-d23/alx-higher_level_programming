@@ -12,4 +12,3 @@ elif LastDigit > 5:
     print(info, "greater than 5")
 else:
     print(info, "less than 6 and not 0")
-
