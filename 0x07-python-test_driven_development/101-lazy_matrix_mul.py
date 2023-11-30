@@ -7,4 +7,4 @@ import numpy
 
 def lazy_matrix_mul(m_a, m_b):
     """matrix multiplication of two matrices is calculated"""
-    return numpy.dot(m_a, m_b)
+    return numpy.matmul(m_a, m_b)
