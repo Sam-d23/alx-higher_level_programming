@@ -1,10 +1,4 @@
 #!/usr/bin/node
-if (process.argv[2] !== undefined && process.argv[3] !== undefined)
-{
-console.log(process.argv[2] + ' is ' + process.argv[3]);
-} 
-else
-{
-console.log("Error: Please enter two arguments");
-}
 
+const { argv } = require('process');
+console.log(`${argv[2]} is ${argv[3]}`);
