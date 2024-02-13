@@ -1,4 +1,9 @@
 #!/usr/bin/node
-const argu = process.argv[2];
-
-console.log(argu !== undefined ? argu : 'No argument')
+if (process.argv[2] !== undefined)
+{
+console.log(process.argv[2]);
+}
+else
+{
+console.log('No argument');
+}
