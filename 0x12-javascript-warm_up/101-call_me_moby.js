@@ -1,10 +1,7 @@
 #!/usr/bin/node
 
-function executeXTimes(x, theFunction) {
-  for (let j = 0; j < x; j++) {
+const executeXTimes = function(x, theFunction) {
+  for (let i = 0; i < x; i++) {
     theFunction();
   }
-}
-
-module.exports.executeXTimes = executeXTimes;
-
+};
