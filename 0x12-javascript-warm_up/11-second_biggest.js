@@ -1,9 +1,10 @@
 #!/usr/bin/node
 
-if (!process.argv[2] || !process.argv[3]) {
+if (process.argv.length <= 3) {
   console.log(0);
 } else {
-  const args = process.argv.slice(2);
-  const int_args = args.sort((a, b) => a - b);
-  console.log(int_args[int_args.length - 2]);
+  const arg_int = process.argv.map(Number)
+    .slice(2, process.argv.length)
+    .sort((a, b) => a - b);
+  console.log(args[arg_int.length - 2]);
 }
