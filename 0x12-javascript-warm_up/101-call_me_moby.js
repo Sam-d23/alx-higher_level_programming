@@ -1,5 +1,10 @@
 #!/usr/bin/node
 
-exports.add = function (x, theFunction) {
-  theFunction(++x);
-};
+function executeXTimes(x, theFunction) {
+  for (let j = 0; j < x; j++) {
+    theFunction();
+  }
+}
+
+module.exports.executeXTimes = executeXTimes;
+
