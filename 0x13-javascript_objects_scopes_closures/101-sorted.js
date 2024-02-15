@@ -1,14 +1,9 @@
 #!/usr/bin/node
 
-const dict = require('./101-data');
+const dict = require('./101-data').dict;
+const new_dict = Object.entries(dict).reduce((item, [k, v]) => {
+  item[v] = item[v] ? [...item[v], k] : [k];
+  return item;
+}, {});
 
-const userOccurrences = {};
-for (const userId in dict) {
-  const occurrences = dict[userId];
-  if (userOccurrences[occurrences] === undefined) {
-    userOccurrences[occurrences] = [];
-  }
-  userOccurrences[occurrences].push(userId);
-}
-
-console.log(userOccurrences);
+console.log(new_dict);
