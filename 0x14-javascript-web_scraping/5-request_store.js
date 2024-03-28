@@ -1,22 +1,27 @@
 #!/usr/bin/node
+
 const fs = require('fs');
-const request = require('request');
+const http = require('http');
 
 const url = process.argv[2];
 const filePath = process.argv[3];
 
-request.get(url, (error, response, body) => {
-  if (error) {
-    console.error('An error occurred while making the request:', error);
-  } else if (response.statusCode !== 200) {
-    console.error('Failed to fetch webpage. Status code:', response.statusCode);
-  } else {
-    fs.writeFile(filePath, body, 'utf8', (err) => {
+http.get(url, (response) => {
+  let data = '';
+
+  response.on('data', (chunk) => {
+    data += chunk;
+  });
+
+  response.on('end', () => {
+    fs.writeFile(filePath, data, (err) => {
       if (err) {
-        console.error('Error writing to file:', err);
+        console.error(err);
       } else {
-        console.log('Webpage content saved to', filePath);
+        console.log(`Successfully saved data to ${filePath}`);
       }
     });
-  }
+  });
+}).on('error', (err) => {
+  console.error(`Error retrieving data from ${url}: ${err.message}`);
 });
