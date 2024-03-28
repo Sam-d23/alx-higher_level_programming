@@ -1,22 +1,36 @@
 #!/usr/bin/node
+const request = require('request');
 
-const rp = require('request-promise-native');
-
-async function getFilmCharacters(url) {
-    try {
-        const response = await rp(url);
-        const filmData = JSON.parse(response);
-        const characters = filmData.characters;
-        for (const characterUrl of characters) {
-            const characterResponse = await rp(characterUrl);
-            const characterData = JSON.parse(characterResponse);
-            console.log(characterData.name);
-        }
-    } catch (error) {
-        console.error(error);
-    }
+async function fetchCharacters(url) {
+  return new Promise((resolve, reject) => {
+    request(url, (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        reject(error || new Error(`Failed to fetch characters from ${url}`));
+      } else {
+        resolve(JSON.parse(body).characters);
+      }
+    });
+  });
 }
 
-const filmId = process.argv[2];
-const filmUrl = `https://swapi-api.hbtn.io/api/films/${filmId}`;
-getFilmCharacters(filmUrl);
+async function printCharacters(characters) {
+  for (const character of characters) {
+    try {
+      const response = await fetchCharacters(character);
+      console.log(JSON.parse(response).name);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+}
+
+(async () => {
+  try {
+    const filmId = process.argv[2];
+    const filmUrl = `https://swapi-api.hbtn.io/api/films/${filmId}`;
+    const characters = await fetchCharacters(filmUrl);
+    await printCharacters(characters);
+  } catch (error) {
+    console.error(error);
+  }
+})();
